@@ -84,6 +84,26 @@ define(function (require) {
       return bars;
     };
 
+    ColumnChart.prototype.convertToPercentage = function (layers) {
+      (function assignPercentages(layers) {
+
+        var sum = 0;
+
+        layers.forEach(function (layer) {
+          layer.forEach(function (bar) {
+              sum += bar.y;
+          });
+        });
+
+        layers.forEach(function (layer) {
+          layer.forEach(function (bar) {
+              bar._input.percent = bar.y / sum;
+          });
+
+        });
+      }(layers));
+    };
+
     /**
      * Determines whether bars are grouped or stacked and updates the D3
      * selection
@@ -308,6 +328,8 @@ define(function (require) {
 
           bars = self.addBars(svg, layers);
           self.createEndZones(svg);
+
+          self.convertToPercentage(layers);
 
           // Adds event listeners
           self.addBarEvents(bars, svg);

@@ -2,6 +2,7 @@ define(function (require) {
   return function PointSeriesTooltipFormatter($compile, $rootScope) {
     var _ = require('lodash');
     var $ = require('jquery');
+    var numeral = require('numeral');
 
     var $tooltipScope = $rootScope.$new();
     var $tooltip = $(require('text!components/agg_response/point_series/_tooltip.html'));
@@ -24,7 +25,8 @@ define(function (require) {
         };
 
         if (agg === datum.aggConfigResult.aggConfig) {
-          detail.percent = event.percent;
+          //detail.percent = event.percent;
+          detail.percent = numeral(datum.percent).format('0.[00]%');
           if (datum.yScale != null) {
             detail.value = agg.fieldFormatter()(value * datum.yScale);
           }
