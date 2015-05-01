@@ -91,13 +91,13 @@ define(function (require) {
 
         layers.forEach(function (layer) {
           layer.forEach(function (bar) {
-              sum += bar.y;
+            sum += bar.y;
           });
         });
 
         layers.forEach(function (layer) {
           layer.forEach(function (bar) {
-              bar._input.percent = bar.y / sum;
+            bar._input.percent = bar.y / sum;
           });
 
         });
